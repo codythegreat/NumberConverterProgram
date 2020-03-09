@@ -2,6 +2,26 @@
 # to/from decimal and hexadecimal, and converts decimal to/from
 # 16-bit 2's complement signed
 
+# dict used for converting to/from bin and hex
+binToHexValues = {
+    "0000": "0",
+    "0001": "1",
+    "0010": "2",
+    "0011": "3",
+    "0100": "4",
+    "0101": "5",
+    "0110": "6",
+    "0111": "7",
+    "1000": "8",
+    "1001": "9",
+    "1010": "A",
+    "1011": "B",
+    "1100": "C",
+    "1101": "D",
+    "1110": "E",
+    "1111": "F",
+}
+
 ###### USER INPUT FUNCTIONS ######
 def selectConversionMode():
     print("Input number of desired conversion:")
@@ -89,24 +109,6 @@ def checkNumberByType(conversionType, numberToConvert):
 
 ###### CONVERSION FUNCTIONS ######
 def conv16BToHex(numberToConvert):
-    binToHexValues = {
-        "0000": "0",
-        "0001": "1",
-        "0010": "2",
-        "0011": "3",
-        "0100": "4",
-        "0101": "5",
-        "0110": "6",
-        "0111": "7",
-        "1000": "8",
-        "1001": "9",
-        "1010": "A",
-        "1011": "B",
-        "1100": "C",
-        "1101": "D",
-        "1110": "E",
-        "1111": "F",
-    }
     # perfom a key/value lookup for every 4 places of binary
     return binToHexValues.get(numberToConvert[:4])  \
         + binToHexValues.get(numberToConvert[4:8])  \
@@ -114,28 +116,12 @@ def conv16BToHex(numberToConvert):
         + binToHexValues.get(numberToConvert[12:16])
 
 def convHexTo16B(numberToConvert):
-    hexToBinValues = {
-        "0": "0000",
-        "1": "0001",
-        "2": "0010",
-        "3": "0011",
-        "4": "0100",
-        "5": "0101",
-        "6": "0110",
-        "7": "0111",
-        "8": "1000",
-        "9": "1001",
-        "A": "1010",
-        "B": "1011",
-        "C": "1100",
-        "D": "1101",
-        "E": "1110",
-        "F": "1111",
-    }
+    # invert binToHexValues to convert hex to bin
+    hexToBinValues = dict([[v,k] for k,v in binToHexValues.items()])
     # for each digit of hex perform a key/value lookup
     converted = ""
     for i in range(len(numberToConvert)):
-        converted = converted + hexToBinValues.get(numberToConvert[i])
+        converted += hexToBinValues.get(numberToConvert[i])
     return converted
 
 def conv16BToDec(numberToConvert):
