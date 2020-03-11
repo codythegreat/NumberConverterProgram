@@ -117,7 +117,7 @@ def conv16BToHex(numberToConvert):
 
 def convHexTo16B(numberToConvert):
     # invert binToHexValues to convert hex to bin
-    hexToBinValues = dict([[v,k] for k,v in binToHexValues.items()])
+    hexToBinValues = {v: k for k, v in binToHexValues.items()}
     # for each digit of hex perform a key/value lookup
     converted = ""
     for i in range(len(numberToConvert)):
